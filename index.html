@@ -23,7 +23,7 @@
             pdf: null
         }
    let n = 5;
-   pdfjsLib.getDocument('https://github.com/hidaigtutorial/test1/blob/master/present2.pdf').then(async function(pdf) {
+   pdfjsLib.getDocument('present2.pdf').then(async function(pdf) {
        let n = pdf.numPages;
        for(var i=1; i<(n+1); i++) {
         $("#clone").clone().appendTo("#flipbook" )
