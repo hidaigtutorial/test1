@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My PDF Viewer</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="lib/turn.min.js"></script>
+    <script src="turn.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
     </script>
     <style>
@@ -23,7 +23,7 @@
             pdf: null
         }
    let n = 5;
-   pdfjsLib.getDocument('present2.pdf').then(async function(pdf) {
+   pdfjsLib.getDocument('https://github.com/hidaigtutorial/test1/blob/master/present2.pdf').then(async function(pdf) {
        let n = pdf.numPages;
        for(var i=1; i<(n+1); i++) {
         $("#clone").clone().appendTo("#flipbook" )
