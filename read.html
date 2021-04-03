@@ -1,0 +1,59 @@
+<!doctype html>
+  
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My PDF Viewer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="lib/turn.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
+    </script>
+    <style>
+    </style>
+</head>
+<body style="background-color: lightskyblue">
+<div id="flipbook" style="margin: auto">
+    <div id="clone">
+        <canvas id="pdf_renderer0"></canvas>
+    </div>
+</div>
+<script>
+   var myState = {
+            pdf: null
+        }
+   let n = 5;
+   pdfjsLib.getDocument('present2.pdf').then(async function(pdf) {
+       let n = pdf.numPages;
+       for(var i=1; i<(n+1); i++) {
+        $("#clone").clone().appendTo("#flipbook" )
+        $("#flipbook").children()[i].id = "div" + (n+1-i).toString()
+        $("#flipbook").children()[i].children[0].id = "pdf_renderer" + (n+1-i).toString()
+       await pdf.getPage((n+1-i)).then((page) => {
+           
+               var canvas = document.getElementById("pdf_renderer" + (n+1-i).toString());
+                var ctx = canvas.getContext('2d');
+      
+                var viewport = page.getViewport(1);
+ 
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+          
+                page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                });
+            });
+       }
+       $("#flipbook").children()[0].remove()
+       	$("#flipbook").turn({
+            width: 1186,
+            height: 843,
+            gradients: true,
+            acceleration: true,
+            page: n
+	   });
+    });
+</script>
+</body>
+</html>
